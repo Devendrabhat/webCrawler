@@ -7,6 +7,7 @@ import time
 import queue
 import shutil
 from numpy import array
+import urllib.request
 
 ############ Self Modules ###########
 from modules import scrapper
