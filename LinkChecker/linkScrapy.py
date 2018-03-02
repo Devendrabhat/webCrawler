@@ -131,10 +131,10 @@ def main(input_file):
 				linkType = UrlStatus.getLinkType(url)
 				#print(url)
 				if UrlStatus.hasLinkType(url) and re.match(r'inlink',linkType):
-					code = UrlStatus.getStatus(url)
+					code = UrlStatus.getStatus(url)				##### Get status only if the link is inlink
 					#print(type(code))
 					if UrlStatus.hasLink(url) and code == 200:
-						if url in DictionaryUrl:
+						if url in DictionaryUrl:				##### Add to status dict only if the link is active i.e. code 200
 							pass
 						else:
 							DictionaryUrl[url] = 1
