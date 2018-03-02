@@ -162,8 +162,8 @@ def main(input_file):
 		print('Site {} is completed in {} mil sec'.format(site_iterator,(time.time()-initialTime)*1000))
 		site_iterator+=1
 	os.chdir('../')										######				$current dir = ./
-	if os.path.isdir('temp')==True:
-		shutil.rmtree('temp')
+	if os.path.isdir('temp')==True:						######	Check if temp is present
+		shutil.rmtree('temp')							######	Clean the temp to free the memory
 
 
 
