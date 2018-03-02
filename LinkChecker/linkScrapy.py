@@ -15,11 +15,6 @@ from modules import linkDetails
 
 ###################### Main Module (  Called from Below  )
 
-This is testing so i can make errors
-fdfkd;formatfsdfsojdfds
-f
-dsv'ds;vf
-sdfd
 
 
 def main(input_file):
