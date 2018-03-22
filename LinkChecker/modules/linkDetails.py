@@ -8,7 +8,7 @@ from numpy import array
 
 ############ Self Modules ###########
 
-from modules.filePlay import writefile,readfile
+from modules.filePlay import writefile
 
 
 
@@ -46,13 +46,21 @@ def isLinkValid(mainSite,link,UrlStatus):
 		return False
 
 class inlinkStatus:
-	def __init__(self,input_object):
+	def __init__(self):
 		self.linkStatusDictionary = {}
 		self.linkType = {}
 		self.linkName = {}
-		self.linkOpen = {}
-		self.tempList = input_object.readlines()
-		self.linksToExclude = array([line[:-1] for line in self.tempList])  ### Also to avoid the last "\n" with :-1
+		self.linksToExclude = array(['VehicleSearchResults',       #### Excluded links, include here if needed.
+									'VehicleDetails',
+									'models','Specials',
+									'review','?','f_WindowSticker',
+									'FactoryPreOwnedCollection',
+									'ContactUsForm',
+									'ServiceApptForm',
+									'HomePage',
+									'PrivacyPolicy',
+									'ConnectedStore_D'])
+		
 		self.excludedLinks = {key:0 for key in self.linksToExclude}			### Dictionary to maintain the no of times excluded links to allow
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -70,27 +78,6 @@ class inlinkStatus:
 			self.excludedLinks[page] = no
 		else:
 			self.excludedLinks[page] = no
-
-
-
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-
-
-	def getOpenLink(self,page):
-		if page in self.linkOpen:
-			site = self.linkOpen[page]
-			return site
-
-	def putOpenLink(self,page,site):
-		self.linkOpen[page] = site
-	def hasOpenLink(self,page):
-		if page in self.linkOpen:
-			return True
-		else:
-			return False
-
-
 
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -169,23 +156,17 @@ def getUserAgent():
 #	print(useragent)
 	return useragent
 
-def request(threadName,page,UrlStatus):
-
-	if UrlStatus.hasOpenLink(page):
-		site = UrlStatus.getOpenLink(page)
-	else:
-		userAgent = getUserAgent()
-	#	print(page)
-		req = urllib.request.Request(page,None,headers={ 'User-Agent': '{}'.format(userAgent)})
-		site = urllib.request.urlopen(req)
-		site = site.geturl()
-	#	print(threadName+" > To = %s"%site)
-		req = urllib.request.Request(site,None,headers={ 'User-Agent': '{}'.format(userAgent)})
-		site = urllib.request.urlopen(req)
-		UrlStatus.putOpenLink(page,site)
-
-
+def request(threadName,page):
+	userAgent = getUserAgent()
+#	print(page)
+	req = urllib.request.Request(page,None,headers={ 'User-Agent': '{}'.format(userAgent)})
+	site = urllib.request.urlopen(req)
+	site = site.geturl()
+#	print(threadName+" > To = %s"%site)
+	req = urllib.request.Request(site,None,headers={ 'User-Agent': '{}'.format(userAgent)})
+	site = urllib.request.urlopen(req)
 	code = site.getcode()
+
 	return site,code
 
 def checker(mainSite,link,fileName,UrlStatus):
@@ -213,7 +194,7 @@ def status(threadName,siteType,page,outputObject,UrlStatus):
 		#	print(threadName+' > '+code)
 		#	writefile(outputObject,"\n"+"{} => ".format(siteType)+link,code)			
 		elif not UrlStatus.hasLink(page):
-			site,code = request(threadName,page,UrlStatus)		### site contains redirected link
+			site,code = request(threadName,page)		### site contains redirected link
 			UrlStatus.putStatus(page,code)
 			linkName = UrlStatus.getLinkName(page)
 			# if linkName is None:

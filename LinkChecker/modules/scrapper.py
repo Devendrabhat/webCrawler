@@ -28,23 +28,12 @@ def getFileName(soup):
 				return name
 
 
-def findAllLinks(soup,page,mainSite,UrlStatus):
+def findAllLinks(soup,mainSite,UrlStatus):
 	urls = []
 	iterator = 1
 	site_name,domain=findDomainOfMainSite(mainSite)             					 	##### from scrappy.py 
 	allDomains = ('.com','.ca','.au','.nz','.net','.org','.co','.gm','.info','.biz','.vegas','.us','.mx')
-	pattern = re.compile('^'+page+'$')
-	if not pattern.match(mainSite) and soup.find('body'):
-		body = soup.find('body')
-		if body.find('a'):
-			links = body.find_all('a')
-		else:
-			links = []
-	elif soup.find('a'):
-		links = soup.find_all('a')
-	else:
-		links = []
-
+	links = soup.find_all('a')
 	for lin in links:											####### Checking all sorts of links (link validator)
 		lTemp = lin.get('href')
 		link = lTemp
