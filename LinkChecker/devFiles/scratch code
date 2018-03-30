@@ -1,0 +1,12 @@
+
+
+
+
+
+if re.search('manner',pageText):
+    print('found')
+else:
+    print("nope")
+
+
+
