@@ -9,9 +9,7 @@ import shutil
 from numpy import array
 
 ############ Self Modules ###########
-from modules import scrapper
-from modules import filePlay
-from modules import linkDetails
+from modules import scrapper, linkDetails, filePlay, textDetails
 
 ###################### Main Module (  Called from Below  )
 
@@ -102,10 +100,12 @@ def main(input_file):
 			iterator=1
 			t=[]
 			for url in urls:
-		#		print(url)
+		# Link checker
 				t.append(threading.Thread(target=linkDetails.checker,args=(mainSite,url,"output{}/file{}".format(link_iterator,iterator),UrlStatus),name='t{}'.format(iterator)))
 				iterator+=1
-
+		# Spell checker
+			t.append(threading.Thread(target=textDetails.wordFinder,args=(soup,"output{}/wordFile{}".format(link_iterator,iterator),cwd),name='t{}'.format(iterator)))
+			no += 1
 			iterator=0
 			while iterator<no:
 				t[iterator].start()
@@ -116,8 +116,12 @@ def main(input_file):
 				t[iterator].join()
 				iterator+=1
 
+		
+				
+			
+
 			filePlay.combiner(page,"output{}".format(link_iterator),"{}/{}_{}.csv".format(cwd,name,time.strftime("%A%d%b%y")))     #### change slash
-					#   | arg 1 !! slash above							| arg 2					!! timestamp (Day,HH,date)
+		#			    | arg 1 !! slash above							| arg 2					!! timestamp (Day,HH,date)
 			
 
 			for url in urls:

@@ -8,7 +8,7 @@ from numpy import array
 
 ############ Self Modules ###########
 
-from modules.filePlay import writefile
+from modules.filePlay import writeLinkToFile
 
 
 
@@ -192,16 +192,16 @@ def status(threadName,siteType,page,outputObject,UrlStatus):
 		if UrlStatus.hasLink(page):
 			code = UrlStatus.getStatus(page)
 		#	print(threadName+' > '+code)
-		#	writefile(outputObject,"\n"+"{} => ".format(siteType)+link,code)			
+		#	writeLinkToFile(outputObject,"\n"+"{} => ".format(siteType)+link,code)			
 		elif not UrlStatus.hasLink(page):
 			site,code = request(threadName,page)		### site contains redirected link
 			UrlStatus.putStatus(page,code)
 			linkName = UrlStatus.getLinkName(page)
 			# if linkName is None:
-			# 	writefile(outputObject,"\n"+"{} => ".format(siteType)+link,code,'no name found')			
+			# 	writeLinkToFile(outputObject,"\n"+"{} => ".format(siteType)+link,code,'no name found')			
 			# 	print('none')
 			# else:
-			# 	writefile(outputObject,"\n"+"{} => ".format(siteType)+link,code,linkName)			
+			# 	writeLinkToFile(outputObject,"\n"+"{} => ".format(siteType)+link,code,linkName)			
 			# 	print(linkName+' = {}'.format(type(linkName)))
 
 	except urllib.error.HTTPError as e:
@@ -214,22 +214,22 @@ def status(threadName,siteType,page,outputObject,UrlStatus):
 		# 	UrlStatus.putStatus(page,code)
 		linkName = UrlStatus.getLinkName(page)
 		if linkName is None:
-			writefile(outputObject,"\n"+"{} => ".format(siteType)+page,code,"No Name found")
+			writeLinkToFile(outputObject,"\n"+"{} => ".format(siteType)+page,code,"No Name found")
 			# print('none')
 		elif re.match(r'^\n',linkName):								####### for name only with space
-			writefile(outputObject,"\n"+"{} => ".format(siteType)+page,code,"No Name found")
+			writeLinkToFile(outputObject,"\n"+"{} => ".format(siteType)+page,code,"No Name found")
 		else:
-			writefile(outputObject,"\n"+"{} => ".format(siteType)+page,code,linkName)
+			writeLinkToFile(outputObject,"\n"+"{} => ".format(siteType)+page,code,linkName)
 			# print(linkName+' = {}'.format(type(linkName)))
-		#writefile(outputObject,"\n"+"{} => ".format(siteType)+page,code)
+		#writeLinkToFile(outputObject,"\n"+"{} => ".format(siteType)+page,code)
 	except urllib.error.URLError as e:
 		e = str(e)
 		#print(threadName+'> {} > '.format(page)+"URLError")
 		# if not UrlStatus.hasLink(page):
 		# 	UrlStatus.putStatus(page,code)
-		writefile(outputObject,"\n"+"{} => ".format(siteType)+page,"URLError",'none')
+		writeLinkToFile(outputObject,"\n"+"{} => ".format(siteType)+page,"URLError",'none')
 	except UnicodeError as e:
-		writefile(outputObject,"\n"+"{} => ".format(siteType)+page,"UnicodeError",'none')
+		writeLinkToFile(outputObject,"\n"+"{} => ".format(siteType)+page,"UnicodeError",'none')
 
 
 def test():
