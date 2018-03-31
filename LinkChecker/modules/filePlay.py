@@ -9,7 +9,10 @@ def writeLinkToFile(object,link,code,linkName):                 #	Basic function
 	object.write(link+" ==>> "+code+" ==>> "+linkName)			
 
 def writeWordToFile(object,word):								#	Basic function to write words into files (mainly for checker)
-	object.write("Word found => "+word)
+	object.write("Word found => "+word+'\n')
+
+def writeMainLink(object,MainLink):
+	object.write(MainLink)
 
 
 def combiner(line,newDir,newFile):

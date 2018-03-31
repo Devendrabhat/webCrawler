@@ -1,4 +1,32 @@
 
+##### spell check
+#dep
+import nltk
+nltk.download()
+
+download all the packages
+
+
+#code
+from nltk.corpus import brown
+word_list = brown.words()
+word_set = set(word_list)
+
+# Check if word is in set
+"looked" in word_set  # Returns True
+"hurrr" in word_set  # Returns False
+
+
+
+
+
+
+
+
+
+
+
+##### Words search
 
 texts = soup.findAll(text = True)  
 

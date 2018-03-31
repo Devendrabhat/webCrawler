@@ -54,6 +54,15 @@ def main(input_file):
 			uniqueLinkSet.add(page)
 			DictionaryUrl[page] = 0 				###### as soon as removes the link from queue set 0 to dictionary
 			os.mkdir('output{}'.format(link_iterator))
+			
+			# print the current page in wordFinder file 
+			output_file = open(os.path.join(cwd,"wordFile{}.csv".format(site_iterator)),'a+')
+
+			filePlay.writeMainLink(output_file,page+'\n')
+
+			output_file.close()
+			#!
+
 			print("current page "+page)
 
 			site,code = linkDetails.request('mainThread',page)        ###$$$$****&&&&^^*))($#$%^&*&)  put this in if else for main site
@@ -104,7 +113,7 @@ def main(input_file):
 				t.append(threading.Thread(target=linkDetails.checker,args=(mainSite,url,"output{}/file{}".format(link_iterator,iterator),UrlStatus),name='t{}'.format(iterator)))
 				iterator+=1
 		# Spell checker
-			t.append(threading.Thread(target=textDetails.wordFinder,args=(soup,"output{}/wordFile{}".format(link_iterator,iterator),cwd),name='t{}'.format(iterator)))
+			t.append(threading.Thread(target=textDetails.wordFinder,args=(soup,"wordFile{}.csv".format(site_iterator),cwd),name='t{}'.format(iterator)))
 			no += 1
 			iterator=0
 			while iterator<no:

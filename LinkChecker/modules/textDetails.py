@@ -36,9 +36,9 @@ class wordsProcessor:
 
 
 
-def wordFinder(soup,filePath,homeDir):
+def wordFinder(soup,fileName,homeDir):
 	finder = wordsProcessor()
-	output_file = open(filePath,'w')
+	output_file = open(os.path.join(homeDir,fileName),'a+')
 	
 	rawTexts = soup.findAll(text = True)
 	visibleTexts = filter(finder.tag_visible, rawTexts)
