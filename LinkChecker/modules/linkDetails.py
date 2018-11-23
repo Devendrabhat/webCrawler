@@ -50,16 +50,16 @@ class inlinkStatus:
 		self.linkStatusDictionary = {}
 		self.linkType = {}
 		self.linkName = {}
-		self.linksToExclude = array(['VehicleSearchResults',       #### Excluded links, include here if needed.
-									'VehicleDetails',
+		self.linksToExclude = array(['tests',       #### Excluded links, include here if needed.
+									'solitare',
 									'models','Specials',
-									'review','?','f_WindowSticker',
-									'FactoryPreOwnedCollection',
+									'review','?','sticker',
+									'collection',
 									'ContactUsForm',
 									'ServiceApptForm',
 									'HomePage',
 									'PrivacyPolicy',
-									'ConnectedStore_D'])
+									'Connections'])
 		
 		self.excludedLinks = {key:0 for key in self.linksToExclude}			### Dictionary to maintain the no of times excluded links to allow
 
