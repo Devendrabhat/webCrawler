@@ -29,7 +29,6 @@ def main(input_file):
 	os.mkdir('temp')
 	cwd = os.getcwd()                               ###### main directory             	$current dir = ./
 	os.chdir('temp')								###### operate in temp directory  	$current dir = ./temp
-	#linkToExclude = ['VehicleSearchResults','VehicleDetails','models','Specials','reviews','?', 'f_ ', 'ConnectedStore_D']
 	
 	sites = array(sites)
 	for site in sites:
