@@ -77,32 +77,6 @@ def main(input_file):
 			urls = scrapper.findAllLinks(soup,mainSite,UrlStatus)			###### Finds and returns the set of urls on the page
 			
 			urls = list(urls)
-			
-			
-			tempList = list()
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    Url filtering
-			fileName = "output{}/fileNextGen".format(link_iterator)
-			output_file = open(fileName,'a')
-			for url in urls:
-				#print(url)
-				if re.search('nextGen=false',url) or re.search('disableAutofill=true',url):
-					#print(url)
-					output_file.write(("\n nextGen=false or disableAutofill=true ".upper())+url)
-				elif re.search(r'FactoryPreOwnedCollection', url):
-					pass
-				elif linkDetails.isInlink(mainSite,url):
-					if linkDetails.isLinkValid(mainSite,url,UrlStatus):
-						tempList.append(url)
-				else:
-					tempList.append(url)
-				#	print(url)
-			output_file.close()
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-			urls = tempList
-			print(len(urls))
-			
-			
 
 			no = len(urls)				#--------------------------- Total no of unique links found
 			iterator=1
