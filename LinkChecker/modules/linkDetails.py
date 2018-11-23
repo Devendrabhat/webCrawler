@@ -55,8 +55,6 @@ class inlinkStatus:
 									'models','Specials',
 									'review','?','sticker',
 									'collection',
-									'ContactUsForm',
-									'ServiceApptForm',
 									'HomePage',
 									'PrivacyPolicy',
 									'Connections'])
